@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTR - Defend the Republic | GMU Competition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://placehold.co/32x32/006633/FFFFFF?text=GMU" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              gmu: {
+                green: '#006633',
+                gold: '#FFCC33',
+              },
+              'dark-gray': '#1f2937',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+            },
+            animation: {
+              fadeInUp: 'fadeInUp 0.8s ease-out forwards',
+            },
+            textShadow: {
+              md: '0 2px 4px rgba(0,0,0,0.4)',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+        .placeholder-block {
+            background-color: #e2e8f0; border: 1px dashed #94a3b8; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center; color: #475569;
+            font-size: 0.9rem; min-height: 150px; padding: 1rem;
+        }
+        .video-placeholder {
+            position: relative; background-color: #374151; color: #d1d5db; border: none;
+        }
+        .video-placeholder::after {
+            content: '▶'; font-size: 3rem; color: rgba(255, 255, 255, 0.7); position: absolute;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+        }
+        i.fas, i.fab, i.far { margin-right: 0.4em; vertical-align: -0.05em; }
+
+        section {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        main > section:nth-child(1) { animation-delay: 0s; }
+        main > section:nth-child(2) { animation-delay: 0.1s; }
+        main > section:nth-child(3) { animation-delay: 0.15s; }
+        main > section:nth-child(4) { animation-delay: 0.2s; }
+        main > section:nth-child(5) { animation-delay: 0.25s; }
+        main > section:nth-child(6) { animation-delay: 0.3s; }
+        main > section:nth-child(7) { animation-delay: 0.35s; }
+
+
+        .schedule-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid #d1d5db; }
+        .schedule-day { border-left: 1px solid #d1d5db; }
+        .schedule-day:first-child { border-left: none; }
+        .schedule-header { background-color: #f3f4f6; padding: 0.75rem; text-align: center; font-weight: 600; border-bottom: 1px solid #d1d5db; font-size: 0.9rem; }
+        .schedule-time-slot { padding: 1rem; border-top: 1px solid #e5e7eb; min-height: 130px; display: flex; flex-direction: column; justify-content: flex-start; font-size: 0.8rem; }
+        .schedule-game, .schedule-event, .schedule-practice {
+            border-radius: 4px; padding: 0.75rem; margin-top: 0.75rem; font-size: 0.75rem; line-height: 1.4;
+        }
+        .schedule-game { background-color: #fef9c3; border: 1px solid #fde68a; }
+        .schedule-event { background-color: #e0f2fe; border: 1px solid #bae6fd; }
+        .schedule-practice { background-color: #e5e7eb; border: 1px solid #d1d5db; }
+        .team-logo-sched { width: 1rem; height: 1rem; border-radius: 50%; display: inline-block; margin-right: 0.25rem; vertical-align: middle; background-color: #cbd5e1; }
+        .team-blue { color: #2563eb; }
+        .team-red { color: #dc2626; }
+         .text-shadow-md { text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+
+
+    </style>
+    </head>
+<body class="bg-white font-sans text-gray-800 antialiased overflow-x-hidden pt-16">
+
+    <header class="bg-gmu-green text-white shadow-lg fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-3 flex-shrink-0 mr-6">
+                 <img src="./images/George Mason University Logo-GOLD WHITE-H.svg" alt="GMU Logo Placeholder" class="w-50 rounded-full">
+                 <!-- <a href="#home" class="text-xl md:text-2xl font-semibold tracking-wide text-white hover:text-gmu-gold transition duration-300">Defend the Republic</a> -->
+            </div>
+            <nav class="flex-grow text-right">
+                <ul class="flex flex-wrap justify-end space-x-4 md:space-x-5 text-sm font-medium">
+                    <li><a href="#about" class="hover:text-gmu-gold transition duration-300 py-1">About</a></li>
+                    <li><a href="#teams" class="hover:text-gmu-gold transition duration-300 py-1">Teams</a></li>
+                    <li><a href="#schedule" class="hover:text-gmu-gold transition duration-300 py-1">Schedule</a></li>
+                    <li><a href="gallery.html" class="hover:text-gmu-gold transition duration-300 py-1">Gallery</a></li>
+                    <li><a href="#register" class="hover:text-gmu-gold transition duration-300 py-1">Register</a></li>
+                    <li><a href="#contact" class="hover:text-gmu-gold transition duration-300 py-1">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <section
+            id="home"
+            class="relative text-center pt-24 pb-20 md:pt-36 md:pb-28 text-white bg-cover bg-center animate-fadeInUp"
+            style="background-image: url('./images/eb24.jpg'); animation-delay: 0s;"
+            aria-label="Hero image showing competition action"
+        >
+             <div class="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60 z-0"></div>
+             <div class="relative z-10 container mx-auto px-6">
+                <h2 class="text-4xl md:text-6xl font-bold mb-4 tracking-tight text-shadow-md">Innovate. Build. Compete.</h2>
+                <p class="text-lg md:text-xl text-gray-100 mb-6 leading-relaxed max-w-3xl mx-auto opacity-95">
+                    Join the premier autonomous Lighter-Than-Air (LTA) vehicle competition hosted by George Mason University.
+                </p>
+                <!-- {/* Added Date/Location Info */} -->
+                <div class="mt-6 mb-10 text-center space-y-2 md:space-y-0 md:space-x-6 flex flex-col md:flex-row justify-center items-center">
+                    <p class="text-lg text-yellow-100 flex items-center"><i class="fas fa-calendar-alt fa-fw text-gmu-gold"></i> April 21-25 , 2025 </p>
+                    <p class="text-lg text-yellow-100 flex items-center"><i class="fas fa-map-marker-alt fa-fw text-gmu-gold"></i> George Mason University, Fairfax Campus</p>
+                </div>
+                <a href="#register" class="bg-gmu-gold text-black hover:bg-yellow-400 transition duration-300 font-semibold py-3 px-8 rounded-md text-base shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                    Learn How to Participate
+                </a>
+            </div>
+        </section>
+
+<section id="about" class="py-16 md:py-20 bg-white animate-fadeInUp" style="animation-delay: 0.1s;">
+            <div class="container mx-auto px-6">
+                <h3 class="text-2xl md:text-3xl font-bold text-black mb-4 text-center tracking-tight">What is DTR?</h3>
+                 <p class="text-center text-gray-700 leading-relaxed mb-12 max-w-3xl mx-auto">
+                    DTR is a unique, force-on-force challenge where teams design, build, and program autonomous Lighter-Than-Air (LTA) vehicles to compete in complex scenarios involving searching, capturing objects, and strategic scoring, all while defending their own assets.
+                 </p>
+                 <div class="grid md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
+                    <!-- {/* GIF Placeholder 1: Searching */} -->
+                    <div class="text-center">
+                        <div class="w-full h-56 md:h-64 rounded-lg overflow-hidden shadow-lg mb-3">
+                            <img src="./images/dtr-defend.gif"
+                                 alt="Placeholder GIF showing an autonomous robot or drone searching an area"
+                                 class="w-full h-full object-cover ">
+                                 <!-- {/* What to upload: Animated GIF of a robot/drone navigating or scanning an environment. */} -->
+                        </div>
+                        <p class="font-semibold text-gmu-green">Defend</p>
+                    </div>
+                     <!-- {/* GIF Placeholder 2: Capturing */} -->
+                    <div class="text-center">
+                        <div class="w-full h-56 md:h-64 rounded-lg overflow-hidden shadow-lg mb-3">
+                            <img src="./images/dtr-capture.gif"
+                                 alt="Placeholder GIF showing a robot arm or drone mechanism capturing an object"
+                                 class="w-full h-full object-cover ">
+                                 <!-- {/* What to upload: Animated GIF of a robot/drone interacting with or picking up an object. */} -->
+                        </div>
+                        <p class="font-semibold text-gmu-green">Capture Targets</p>
+                    </div>
+                     <!-- {/* GIF Placeholder 3: Scoring */} -->
+                     <div class="text-center">
+                        <div class="w-full h-56 md:h-64 rounded-lg overflow-hidden shadow-lg mb-3">
+                            <img src="./images/dtr-score.gif"
+                                 alt="Placeholder GIF showing a robot placing an object in a goal or completing a task"
+                                 class="w-full h-full object-cover ">
+                                 <!-- {/* What to upload: Animated GIF of a robot/drone completing its objective, like placing something in a designated area. */} -->
+                        </div>
+                        <p class="font-semibold text-gmu-green">Score & Defend</p>
+                    </div>
+                 </div>
+            </div>
+        </section>
+
+        <section id="details" class="py-16 md:py-20 bg-gray-100 animate-fadeInUp" style="animation-delay: 0.15s;">
+            <div class="container mx-auto px-6">
+                <h3 class="text-2xl md:text-3xl font-bold text-black mb-8 text-center tracking-tight">Event Details</h3>
+                <div class="grid md:grid-cols-3 gap-8 text-center max-w-5xl mx-auto">
+                    <div>
+                        <h4 class="text-lg font-semibold text-gmu-green mb-2 flex items-center justify-center"><i class="fas fa-calendar-alt"></i>When</h4>
+                        <p class="text-gray-700">Spring 2025 / April 21-25, 2025</p>
+                        <!-- <p class="text-sm text-gray-500">(Dates TBD - Check back soon!)</p> -->
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gmu-green mb-2 flex items-center justify-center"><i class="fas fa-map-marker-alt"></i>Where</h4>
+                        <p class="text-gray-700">George Mason University</p>
+                        <p class="text-gray-700">Fairfax Campus</p>
+                        <p class="text-sm text-gray-500">Eagle Bank Areana</p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gmu-green mb-2 flex items-center justify-center"><i class="fas fa-users"></i>Who Can Participate</h4>
+                        <p class="text-gray-700">University Student Teams</p>
+                        <p class="text-gray-700">(Undergraduate & Graduate)</p>
+                        <!-- <p class="text-sm text-gray-500">High School event details separate.</p> -->
+                        <!-- <p class="text-sm text-gray-500">[Placeholder: Link to full eligibility rules TBD]</p> -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="teams" class="py-16 md:py-20 bg-white animate-fadeInUp" style="animation-delay: 0.2s;">
+             <div class="container mx-auto px-6">
+                 <h3 class="text-2xl md:text-3xl font-bold text-black mb-12 text-center tracking-tight flex items-center justify-center">
+                    <i class="fas fa-users"></i> Registered Teams
+                 </h3>
+                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-5 md:gap-8 max-w-4xl mx-auto">
+                     <div class="bg-gray-100 p-4 rounded-lg text-center shadow-md border border-gray-200 hover:shadow-xl hover:scale-[1.03] transition-all duration-300 ease-out">
+                         <img src="https://placehold.co/100x100/e2e8f0/4B5563?text=GMU" alt="GMU Blimp Squad Logo Placeholder" class="w-20 h-20 mx-auto mb-3 rounded-full object-cover bg-gray-300 ring-2 ring-white">
+                         <h4 class="font-semibold text-gmu-green text-base mb-1 truncate">GMU Blimp Squad</h4>
+                         <p class="text-xs text-gray-600">George Mason University</p>
+                     </div>
+                      <div class="bg-gray-100 p-4 rounded-lg text-center shadow-md border border-gray-200 hover:shadow-xl hover:scale-[1.03] transition-all duration-300 ease-out">
+                         <img src="https://placehold.co/100x100/e2e8f0/A0AEC0?text=BU" alt="BU Blimps Logo Placeholder" class="w-20 h-20 mx-auto mb-3 rounded-full object-cover bg-gray-300 ring-2 ring-white">
+                         <h4 class="font-semibold text-gmu-green text-base mb-1 truncate">BU Blimps</h4>
+                         <p class="text-xs text-gray-600">Boston University (Assumed)</p>
+                     </div>
+                      <div class="bg-gray-100 p-4 rounded-lg text-center shadow-md border border-gray-200 hover:shadow-xl hover:scale-[1.03] transition-all duration-300 ease-out">
+                         <img src="https://placehold.co/100x100/e2e8f0/800000?text=ASU" alt="ASU Mountain Devils Logo Placeholder" class="w-20 h-20 mx-auto mb-3 rounded-full object-cover bg-gray-300 ring-2 ring-white">
+                         <h4 class="font-semibold text-gmu-green text-base mb-1 truncate">ASU Mountain Devils</h4>
+                         <p class="text-xs text-gray-600">Arizona State University</p>
+                     </div>
+                      <div class="bg-gray-100 p-4 rounded-lg text-center shadow-md border border-gray-200 hover:shadow-xl hover:scale-[1.03] transition-all duration-300 ease-out">
+                         <img src="https://placehold.co/100x100/e2e8f0/B3A369?text=GT" alt="GT BuzzBlimps Logo Placeholder" class="w-20 h-20 mx-auto mb-3 rounded-full object-cover bg-gray-300 ring-2 ring-white">
+                         <h4 class="font-semibold text-gmu-green text-base mb-1 truncate">GT BuzzBlimps</h4>
+                         <p class="text-xs text-gray-600">Georgia Tech</p>
+                     </div>
+                     <div class="bg-gray-100 p-4 rounded-lg text-center shadow-md border border-gray-200 hover:shadow-xl hover:scale-[1.03] transition-all duration-300 ease-out">
+                         <img src="https://placehold.co/100x100/e2e8f0/990000?text=IU" alt="IU Hoosier Flyers Logo Placeholder" class="w-20 h-20 mx-auto mb-3 rounded-full object-cover bg-gray-300 ring-2 ring-white">
+                         <h4 class="font-semibold text-gmu-green text-base mb-1 truncate">IU Hoosier Flyers</h4>
+                         <p class="text-xs text-gray-600">Indiana University</p>
+                     </div>
+                      <div class="bg-gray-100 p-4 rounded-lg text-center shadow-md border border-gray-200 hover:shadow-xl hover:scale-[1.03] transition-all duration-300 ease-out">
+                         <img src="https://placehold.co/100x100/e2e8f0/702F8A?text=LU" alt="Lehigh Swarms Logo Placeholder" class="w-20 h-20 mx-auto mb-3 rounded-full object-cover bg-gray-300 ring-2 ring-white">
+                         <h4 class="font-semibold text-gmu-green text-base mb-1 truncate">Lehigh Swarms</h4>
+                         <p class="text-xs text-gray-600">Lehigh University</p>
+                     </div>
+                 </div>
+             </div>
+         </section>
+
+        <section id="schedule" class="py-16 md:py-20 bg-gray-100 animate-fadeInUp" style="animation-delay: 0.25s;">
+             <div class="container mx-auto px-6">
+                 <h3 class="text-2xl md:text-3xl font-bold text-black mb-12 text-center tracking-tight flex items-center justify-center">
+                    <i class="fas fa-list-ul"></i> Competition Schedule
+                 </h3>
+                 <div class="bg-white p-4 md:p-6 rounded-lg shadow-lg border border-gray-200 overflow-x-auto">
+                     <div class="schedule-grid min-w-[900px]">
+                         <div class="schedule-header">Monday <br class="hidden sm:inline"/><span class="font-normal text-sm">[Apr 21]</span></div>
+                         <div class="schedule-header">Tuesday <br class="hidden sm:inline"/><span class="font-normal text-sm">[Apr 22]</span></div>
+                         <div class="schedule-header">Wednesday <br class="hidden sm:inline"/><span class="font-normal text-sm">[Apr 23]</span></div>
+                         <div class="schedule-header">Thursday <br class="hidden sm:inline"/><span class="font-normal text-sm">[Apr 24]</span></div>
+                         <div class="schedule-header">Friday <br class="hidden sm:inline"/><span class="font-normal text-sm">[Apr 25]</span></div>
+
+                         <div class="schedule-day schedule-time-slot">
+                             8am - 11am<br/>Team Set-up & Practice
+                             <div class="schedule-practice">11:00-12:00<br/>George Mason & Indiana</div>
+                             <div class="schedule-practice">12:00-1:00<br/>Lehigh & Arizona State</div>
+                             <div class="schedule-practice">1:00-2:00<br/>Baylor & Virginia Tech</div>
+                             <div class="schedule-practice">2:00-3:00<br/>George Mason & Indiana</div>
+                             <div class="schedule-practice">3:00-4:00<br/>Lehigh & Arizona State</div>
+                             <div class="schedule-practice">4:00-5:00<br/>Baylor & Virginia Tech</div>
+                             <div class="schedule-practice">5:00-8:00<br/>Open court</div>
+                         </div>
+                         <div class="schedule-day schedule-time-slot">
+                            <div class="schedule-game">
+                                <strong>GAME 1 (10:00-11:15)</strong><br/>
+                                <img src="https://placehold.co/16x16/4b5563/ffffff?text=GMU" alt="GMU Logo" class="team-logo-sched"> GMU Blimp Squad <span class="team-blue">(blue)</span><br/>
+                                vs<br/>
+                                <img src="https://placehold.co/16x16/a0aec0/ffffff?text=BU" alt="BU Logo" class="team-logo-sched"> BU Blimps <span class="team-red">(red)</span>
+                            </div>
+                             <div class="schedule-game">
+                                 <strong>GAME 2 (11:30-12:45)</strong><br/>
+                                 <img src="https://placehold.co/16x16/b3a369/ffffff?text=GT" alt="GT Logo" class="team-logo-sched"> GT BuzzBlimps <span class="team-blue">(blue)</span><br/>
+                                 vs<br/>
+                                 <img src="https://placehold.co/16x16/990000/ffffff?text=IU" alt="IU Logo" class="team-logo-sched"> IU Hoosier Flyers <span class="team-red">(red)</span>
+                             </div>
+                             <div class="schedule-game">
+                                 <strong>GAME 3 (1:00-2:15)</strong><br/>
+                                 <img src="https://placehold.co/16x16/702f8a/ffffff?text=LU" alt="Lehigh Logo" class="team-logo-sched"> Lehigh Swarms <span class="team-blue">(blue)</span><br/>
+                                 vs<br/>
+                                 <img src="https://placehold.co/16x16/800000/ffffff?text=ASU" alt="ASU Logo" class="team-logo-sched"> ASU Mountain Devils <span class="team-red">(red)</span>
+                             </div>
+                             <div class="schedule-game">
+                                 <strong>GAME 4 (2:30-3:45)</strong><br/>
+                                 <img src="https://placehold.co/16x16/b3a369/ffffff?text=GT" alt="GT Logo" class="team-logo-sched"> GT BuzzBlimps <span class="team-blue">(blue)</span><br/>
+                                 vs<br/>
+                                 <img src="https://placehold.co/16x16/a0aec0/ffffff?text=BU" alt="BU Logo" class="team-logo-sched"> BU Blimps <span class="team-red">(red)</span>
+                             </div>
+                             <div class="schedule-game">
+                                 <strong>GAME 5 (4:00-5:15)</strong><br/>
+                                 <img src="https://placehold.co/16x16/4b5563/ffffff?text=GMU" alt="GMU Logo" class="team-logo-sched"> GMU Blimp Squad <span class="team-blue">(blue)</span><br/>
+                                 vs<br/>
+                                 <img src="https://placehold.co/16x16/800000/ffffff?text=ASU" alt="ASU Logo" class="team-logo-sched"> ASU Mountain Devils <span class="team-red">(red)</span>
+                             </div>
+                              <div class="schedule-game">
+                                 <strong>GAME 6 (5:30-6:45)</strong><br/>
+                                 <img src="https://placehold.co/16x16/702f8a/ffffff?text=LU" alt="Lehigh Logo" class="team-logo-sched"> Lehigh Swarms <span class="team-blue">(blue)</span><br/>
+                                 vs<br/>
+                                 <img src="https://placehold.co/16x16/990000/ffffff?text=IU" alt="IU Logo" class="team-logo-sched"> IU Hoosier Flyers <span class="team-red">(red)</span>
+                             </div>
+                         </div>
+                         <div class="schedule-day schedule-time-slot">
+                             <div class="schedule-game">
+                                <strong>GAME 7 (10:00-11:15)</strong><br/>
+                                <img src="https://placehold.co/16x16/800000/ffffff?text=ASU" alt="ASU Logo" class="team-logo-sched"> ASU Mountain Devils <span class="team-blue">(blue)</span><br/>
+                                vs<br/>
+                                <img src="https://placehold.co/16x16/b3a369/ffffff?text=GT" alt="GT Logo" class="team-logo-sched"> GT BuzzBlimps <span class="team-red">(red)</span>
+                             </div>
+                              <div class="schedule-game">
+                                 <strong>GAME 8 (11:30-12:45)</strong><br/>
+                                 <img src="https://placehold.co/16x16/702f8a/ffffff?text=LU" alt="Lehigh Logo" class="team-logo-sched"> Lehigh Swarms <span class="team-blue">(blue)</span><br/>
+                                 vs<br/>
+                                 <img src="https://placehold.co/16x16/a0aec0/ffffff?text=BU" alt="BU Logo" class="team-logo-sched"> BU Blimps <span class="team-red">(red)</span>
+                             </div>
+                             <div class="schedule-game">
+                                 <strong>GAME 9 (1:00-2:15)</strong><br/>
+                                 <img src="https://placehold.co/16x16/800000/ffffff?text=ASU" alt="ASU Logo" class="team-logo-sched"> ASU Mountain Devils <span class="team-blue">(blue)</span><br/>
+                                 vs<br/>
+                                 <img src="https://placehold.co/16x16/990000/ffffff?text=IU" alt="IU Logo" class="team-logo-sched"> IU Hoosier Flyers <span class="team-red">(red)</span>
+                             </div>
+                             <div class="schedule-game">
+                                 <strong>GAME 10 (2:30-3:45)</strong><br/>
+                                 <img src="https://placehold.co/16x16/4b5563/ffffff?text=GMU" alt="GMU Logo" class="team-logo-sched"> GMU Blimp Squad <span class="team-blue">(blue)</span><br/>
+                                 vs<br/>
+                                 <img src="https://placehold.co/16x16/b3a369/ffffff?text=GT" alt="GT Logo" class="team-logo-sched"> GT BuzzBlimps <span class="team-red">(red)</span>
+                             </div>
+                             <div class="schedule-event">5:00-8:00pm<br/>Bourbon & Blimps</div>
+                             <div class="schedule-event">
+                                 <strong>EXHIBITION (5:30-6:30)</strong><br/>
+                                 Red vs Blue free for all
+                             </div>
+                         </div>
+                          <div class="schedule-day schedule-time-slot">
+                             <div class="schedule-game">
+                                <strong>GAME 11 (10:00-11:15)</strong><br/>
+                                <img src="https://placehold.co/16x16/990000/ffffff?text=IU" alt="IU Logo" class="team-logo-sched"> IU Hoosier Flyers <span class="team-blue">(blue)</span><br/>
+                                vs<br/>
+                                <img src="https://placehold.co/16x16/a0aec0/ffffff?text=BU" alt="BU Logo" class="team-logo-sched"> BU Blimps <span class="team-red">(red)</span>
+                             </div>
+                              <div class="schedule-game">
+                                 <strong>GAME 12 (11:30-12:45)</strong><br/>
+                                 <img src="https://placehold.co/16x16/702f8a/ffffff?text=LU" alt="Lehigh Logo" class="team-logo-sched"> Lehigh Swarms <span class="team-blue">(blue)</span><br/>
+                                 vs<br/>
+                                 <img src="https://placehold.co/16x16/4b5563/ffffff?text=GMU" alt="GMU Logo" class="team-logo-sched"> GMU Blimp Squad <span class="team-red">(red)</span>
+                             </div>
+                             <div class="schedule-game">
+                                 <strong>GAME 13 (1:00-2:15)</strong><br/>
+                                 <img src="https://placehold.co/16x16/800000/ffffff?text=ASU" alt="ASU Logo" class="team-logo-sched"> ASU Mountain Devils <span class="team-blue">(blue)</span><br/>
+                                 vs<br/>
+                                 <img src="https://placehold.co/16x16/a0aec0/ffffff?text=BU" alt="BU Logo" class="team-logo-sched"> BU Blimps <span class="team-red">(red)</span>
+                             </div>
+                             <div class="schedule-game">
+                                 <strong>GAME 14 (2:30-3:45)</strong><br/>
+                                 <img src="https://placehold.co/16x16/990000/ffffff?text=IU" alt="IU Logo" class="team-logo-sched"> IU Hoosier Flyers <span class="team-blue">(blue)</span><br/>
+                                 vs<br/>
+                                 <img src="https://placehold.co/16x16/4b5563/ffffff?text=GMU" alt="GMU Logo" class="team-logo-sched"> GMU Blimp Squad <span class="team-red">(red)</span>
+                             </div>
+                             <div class="schedule-game">
+                                 <strong>GAME 15 (4:00-5:15)</strong><br/>
+                                 <img src="https://placehold.co/16x16/702f8a/ffffff?text=LU" alt="Lehigh Logo" class="team-logo-sched"> Lehigh Swarms <span class="team-blue">(blue)</span><br/>
+                                 vs<br/>
+                                 <img src="https://placehold.co/16x16/b3a369/ffffff?text=GT" alt="GT Logo" class="team-logo-sched"> GT BuzzBlimps <span class="team-red">(red)</span>
+                             </div>
+                         </div>
+                         <div class="schedule-day schedule-time-slot">
+                             <div class="schedule-game">
+                                 <strong>3rd Place Match (11:00-12:15)</strong><br/>
+                                 Rank 3 vs Rank 4
+                             </div>
+                             <div class="schedule-game">
+                                 Rank 5 vs Rank 6 (Time TBD)
+                             </div>
+                             <div class="schedule-game">
+                                 <strong>CHAMPIONSHIP</strong><br/>
+                                 First Half (1:00-1:20pm)<br/>
+                                 Second Half (2:00-2:20pm)<br/>
+                                 Rank 1 vs Rank 2
+                             </div>
+                             <div class="schedule-event">Public Doors Open (2:00-3:00pm)</div>
+                             <div class="schedule-event">ALL FLY (2:30-3:00pm)</div>
+                             <div class="schedule-event">Awards (Approx 3:00pm)</div>
+                             <div class="mt-auto pt-2">3:00 PM<br/>Clean up & Depart</div>
+                         </div>
+
+                     </div>
+                 </div>
+             </div>
+         </section>
+
+        <section class="py-16 md:py-20 bg-white animate-fadeInUp" style="animation-delay: 0.6s;">
+            <div class="container mx-auto px-6">
+                <h3 class="text-2xl md:text-3xl font-bold text-black mb-8 text-center tracking-tight flex items-center justify-center">
+                   <i class="fas fa-video"></i> Featured Videos
+                </h3>
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
+                        <div class="w-full aspect-video ">
+                            <iframe width="460" height="315" src="https://www.youtube.com/embed/8Bwf-izAjlc?si=jmsLmZxdgkUJGBqg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                             <!-- <span class="text-sm opacity-75 p-4">Highlight Reel Placeholder</span> -->
+                        </div>
+                        <div class="p-4 bg-gray-50">
+                            <h4 class="font-semibold text-black mb-1">DTR Competition Highlights</h4>
+                            <p class="text-sm text-gray-600 mb-3">Watch exciting moments from past events.</p>
+                        </div>
+                    </div>
+                     <div class="rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
+                        <div class="w-full aspect-video video-placeholder">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qfpPYKXn2j0?si=Q-I4OungBhabEL1H" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-4 bg-gray-50">
+                            <h4 class="font-semibold text-black mb-1">DTR Competition Highlights</h4>
+                            <p class="text-sm text-gray-600 mb-3">Watch exciting moments from past events.</p>
+                            <!-- <p class="text-sm text-gray-600 mb-3">See how teams approach the LTA challenge.</p> -->
+                        </div>
+                    </div>
+                </div>
+                 <!-- <p class="text-center text-xs text-gray-500 mt-6"><em>[Placeholder: Add links to actual YouTube/Vimeo videos.]</em></p> -->
+            </div>
+        </section>
+
+         <section id="register" class="py-16 md:py-20 text-center bg-dark-gray text-gray-200 animate-fadeInUp" style="animation-delay: 0.7s;">
+            <div class="container mx-auto px-6">
+                 <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">Get Involved!</h3>
+                 <p class="mb-8 max-w-2xl mx-auto text-gray-300">
+                     Interested in competing, visiting, or learning more? Registration details and full rules will be available soon.
+                 </p>
+                 <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                     <a href="#" class="bg-gmu-gold text-black hover:bg-yellow-400 transition duration-300 font-semibold py-3 px-8 rounded-md text-base shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                         Registration Form (Link Placeholder)
+                     </a>
+                     <a href="mailto:dtr-info@gmu.edu" class="bg-gray-200 text-dark-gray hover:bg-gray-300 transition duration-300 font-semibold py-3 px-8 rounded-md text-base shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                         Contact Us (dtr-info@gmu.edu)
+                     </a>
+                 </div>
+                 <p class="text-sm text-gray-400 mt-6">[Placeholder: Link to Rules PDF TBD]</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-8">
+        <div class="container mx-auto px-6 text-center text-xs">
+            <img src="./images/George Mason University Logo-GOLD WHITE-H.svg" alt="GMU Logo Placeholder" class="h-20 w-auto mx-auto mb-3 opacity-75">
+            <p>&copy; <span id="year"></span> George Mason University - Defend the Republic Competition.</p>
+            <p><a href="https://www.gmu.edu" target="_blank" rel="noopener noreferrer" class="hover:text-gmu-gold transition duration-300">George Mason University</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
+

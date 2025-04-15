@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTR - Defend the Republic | GMU Competition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://placehold.co/32x32/006633/FFFFFF?text=GMU" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              gmu: {
+                green: '#006633',
+                gold: '#FFCC33',
+              },
+              'dark-gray': '#1f2937',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+            },
+            animation: {
+              fadeInUp: 'fadeInUp 0.8s ease-out forwards',
+            },
+            textShadow: {
+              md: '0 2px 4px rgba(0,0,0,0.4)',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+        .placeholder-block {
+            background-color: #e2e8f0; border: 1px dashed #94a3b8; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center; color: #475569;
+            font-size: 0.9rem; min-height: 150px; padding: 1rem;
+        }
+        .video-placeholder {
+            position: relative; background-color: #374151; color: #d1d5db; border: none;
+        }
+        .video-placeholder::after {
+            content: '▶'; font-size: 3rem; color: rgba(255, 255, 255, 0.7); position: absolute;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+        }
+        i.fas, i.fab, i.far { margin-right: 0.4em; vertical-align: -0.05em; }
+
+        section {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        main > section:nth-child(1) { animation-delay: 0s; }
+        main > section:nth-child(2) { animation-delay: 0.1s; }
+        main > section:nth-child(3) { animation-delay: 0.15s; }
+        main > section:nth-child(4) { animation-delay: 0.2s; }
+        main > section:nth-child(5) { animation-delay: 0.25s; }
+        main > section:nth-child(6) { animation-delay: 0.3s; }
+        main > section:nth-child(7) { animation-delay: 0.35s; }
+
+
+        .schedule-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid #d1d5db; }
+        .schedule-day { border-left: 1px solid #d1d5db; }
+        .schedule-day:first-child { border-left: none; }
+        .schedule-header { background-color: #f3f4f6; padding: 0.75rem; text-align: center; font-weight: 600; border-bottom: 1px solid #d1d5db; font-size: 0.9rem; }
+        .schedule-time-slot { padding: 1rem; border-top: 1px solid #e5e7eb; min-height: 130px; display: flex; flex-direction: column; justify-content: flex-start; font-size: 0.8rem; }
+        .schedule-game, .schedule-event, .schedule-practice {
+            border-radius: 4px; padding: 0.75rem; margin-top: 0.75rem; font-size: 0.75rem; line-height: 1.4;
+        }
+        .schedule-game { background-color: #fef9c3; border: 1px solid #fde68a; }
+        .schedule-event { background-color: #e0f2fe; border: 1px solid #bae6fd; }
+        .schedule-practice { background-color: #e5e7eb; border: 1px solid #d1d5db; }
+        .team-logo-sched { width: 1rem; height: 1rem; border-radius: 50%; display: inline-block; margin-right: 0.25rem; vertical-align: middle; background-color: #cbd5e1; }
+        .team-blue { color: #2563eb; }
+        .team-red { color: #dc2626; }
+         .text-shadow-md { text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+
+
+    </style>
+    </head>
+<body class="bg-white font-sans text-gray-800 antialiased overflow-x-hidden pt-16">
+
+    <header class="bg-gmu-green text-white shadow-lg fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-3 flex-shrink-0 mr-6">
+
+                 <a href="index.html#home"><img src="./images/George Mason University Logo-GOLD WHITE-H.svg" alt="GMU Logo Placeholder" class="w-50 rounded-full"></a>
+                 <!-- <a href="#home" class="text-xl md:text-2xl font-semibold tracking-wide text-white hover:text-gmu-gold transition duration-300">Defend the Republic</a> -->
+            </div>
+            <nav class="flex-grow text-right">
+                <ul class="flex flex-wrap justify-end space-x-4 md:space-x-5 text-sm font-medium">
+                    <li><a href="index.html#about" class="hover:text-gmu-gold transition duration-300 py-1">About</a></li>
+                    <li><a href="index.html#teams" class="hover:text-gmu-gold transition duration-300 py-1">Teams</a></li>
+                    <li><a href="index.html#schedule" class="hover:text-gmu-gold transition duration-300 py-1">Schedule</a></li>
+                    <li><a href="index.htmlgallery.html" class="hover:text-gmu-gold transition duration-300 py-1">Gallery</a></li>
+                    <li><a href="index.html#register" class="hover:text-gmu-gold transition duration-300 py-1">Register</a></li>
+                    <li><a href="index.html#contact" class="hover:text-gmu-gold transition duration-300 py-1">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+<!-- <section id="gallery" class="py-16 md:py-20 bg-white"> -->
+
+     <div class="gallery-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+<div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.05s;">
+                    <a href="#" title="Watch Video: ASL">
+                        <img src="images/ASL.jpg"
+                             alt="Video Thumbnail: ASL"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.10s;">
+                    <a href="#" title="Watch Video: ASU-logo-white">
+                        <img src="images/ASU-logo-white.png"
+                             alt="Video Thumbnail: ASU-logo-white"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.15s;">
+                    <a href="#" title="Watch Video: ASU-logo">
+                        <img src="images/ASU-logo.png"
+                             alt="Video Thumbnail: ASU-logo"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.20s;">
+                    <a href="#" title="Watch Video: DTR_IU_past">
+                        <img src="images/DTR_IU_past.jpg"
+                             alt="Video Thumbnail: DTR_IU_past"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.25s;">
+                    <a href="#" title="Watch Video: DTR_IU_past10">
+                        <img src="images/DTR_IU_past10.jpg"
+                             alt="Video Thumbnail: DTR_IU_past10"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.30s;">
+                    <a href="#" title="Watch Video: DTR_IU_past11">
+                        <img src="images/DTR_IU_past11.jpg"
+                             alt="Video Thumbnail: DTR_IU_past11"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.35s;">
+                    <a href="#" title="Watch Video: DTR_IU_past2">
+                        <img src="images/DTR_IU_past2.jpg"
+                             alt="Video Thumbnail: DTR_IU_past2"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.40s;">
+                    <a href="#" title="Watch Video: DTR_IU_past3">
+                        <img src="images/DTR_IU_past3.jpg"
+                             alt="Video Thumbnail: DTR_IU_past3"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.45s;">
+                    <a href="#" title="Watch Video: DTR_IU_past4">
+                        <img src="images/DTR_IU_past4.jpg"
+                             alt="Video Thumbnail: DTR_IU_past4"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.50s;">
+                    <a href="#" title="Watch Video: DTR_IU_past5">
+                        <img src="images/DTR_IU_past5.jpg"
+                             alt="Video Thumbnail: DTR_IU_past5"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.55s;">
+                    <a href="#" title="Watch Video: DTR_IU_past6">
+                        <img src="images/DTR_IU_past6.jpg"
+                             alt="Video Thumbnail: DTR_IU_past6"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.60s;">
+                    <a href="#" title="Watch Video: DTR_IU_past7">
+                        <img src="images/DTR_IU_past7.jpg"
+                             alt="Video Thumbnail: DTR_IU_past7"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.65s;">
+                    <a href="#" title="Watch Video: DTR_IU_past8">
+                        <img src="images/DTR_IU_past8.jpg"
+                             alt="Video Thumbnail: DTR_IU_past8"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.70s;">
+                    <a href="#" title="Watch Video: DTR_IU_past9">
+                        <img src="images/DTR_IU_past9.jpg"
+                             alt="Video Thumbnail: DTR_IU_past9"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.75s;">
+                    <a href="#" title="Watch Video: DTR_IU_past_ori">
+                        <img src="images/DTR_IU_past_ori.jpg"
+                             alt="Video Thumbnail: DTR_IU_past_ori"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.80s;">
+                    <a href="#" title="Watch Video: EventMap">
+                        <img src="images/EventMap.png"
+                             alt="Video Thumbnail: EventMap"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.85s;">
+                    <a href="#" title="Watch Video: Game Schedule_with_Finals">
+                        <img src="images/Game Schedule_with_Finals.png"
+                             alt="Video Thumbnail: Game Schedule_with_Finals"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.90s;">
+                    <a href="#" title="Watch Video: Game_Schedule_Final">
+                        <img src="images/Game_Schedule_Final.png"
+                             alt="Video Thumbnail: Game_Schedule_Final"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 0.95s;">
+                    <a href="#" title="Watch Video: George Mason University 4C H">
+                        <img src="images/George Mason University 4C H.png"
+                             alt="Video Thumbnail: George Mason University 4C H"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.00s;">
+                    <a href="#" title="Watch Video: IUB.H.2line_WEB">
+                        <img src="images/IUB.H.2line_WEB.png"
+                             alt="Video Thumbnail: IUB.H.2line_WEB"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.05s;">
+                    <a href="#" title="Watch Video: MESH_DTR_layout">
+                        <img src="images/MESH_DTR_layout.png"
+                             alt="Video Thumbnail: MESH_DTR_layout"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.10s;">
+                    <a href="#" title="Watch Video: MESH_DTR_layout_resized">
+                        <img src="images/MESH_DTR_layout_resized.png"
+                             alt="Video Thumbnail: MESH_DTR_layout_resized"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.15s;">
+                    <a href="#" title="Watch Video: MESH_DTR_photo">
+                        <img src="images/MESH_DTR_photo.png"
+                             alt="Video Thumbnail: MESH_DTR_photo"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.20s;">
+                    <a href="#" title="Watch Video: MESH_outdoor">
+                        <img src="images/MESH_outdoor.jpg"
+                             alt="Video Thumbnail: MESH_outdoor"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.25s;">
+                    <a href="#" title="Watch Video: MylesBrand-Spring">
+                        <img src="images/MylesBrand-Spring.jpg"
+                             alt="Video Thumbnail: MylesBrand-Spring"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.30s;">
+                    <a href="#" title="Watch Video: baylor-logo-cropped">
+                        <img src="images/baylor-logo-cropped.png"
+                             alt="Video Thumbnail: baylor-logo-cropped"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.35s;">
+                    <a href="#" title="Watch Video: baylor-logo-raw">
+                        <img src="images/baylor-logo-raw.png"
+                             alt="Video Thumbnail: baylor-logo-raw"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.40s;">
+                    <a href="#" title="Watch Video: baylor-logo">
+                        <img src="images/baylor-logo.png"
+                             alt="Video Thumbnail: baylor-logo"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.45s;">
+                    <a href="#" title="Watch Video: bloomington-indiana-logo">
+                        <img src="images/bloomington-indiana-logo.png"
+                             alt="Video Thumbnail: bloomington-indiana-logo"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.50s;">
+                    <a href="#" title="Watch Video: bloomington-transit-logo">
+                        <img src="images/bloomington-transit-logo.png"
+                             alt="Video Thumbnail: bloomington-transit-logo"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.55s;">
+                    <a href="#" title="Watch Video: bowling_ball">
+                        <img src="images/bowling_ball.jpg"
+                             alt="Video Thumbnail: bowling_ball"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.60s;">
+                    <a href="#" title="Watch Video: bowling_ball">
+                        <img src="images/bowling_ball.png"
+                             alt="Video Thumbnail: bowling_ball"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.65s;">
+                    <a href="#" title="Watch Video: deliver">
+                        <img src="images/deliver.png"
+                             alt="Video Thumbnail: deliver"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.70s;">
+                    <a href="#" title="Watch Video: dtr-capture">
+                        <img src="images/dtr-capture.gif"
+                             alt="Video Thumbnail: dtr-capture"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.75s;">
+                    <a href="#" title="Watch Video: dtr-defend">
+                        <img src="images/dtr-defend.gif"
+                             alt="Video Thumbnail: dtr-defend"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.80s;">
+                    <a href="#" title="Watch Video: dtr-score">
+                        <img src="images/dtr-score.gif"
+                             alt="Video Thumbnail: dtr-score"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.85s;">
+                    <a href="#" title="Watch Video: eb24">
+                        <img src="images/eb24.jpg"
+                             alt="Video Thumbnail: eb24"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.90s;">
+                    <a href="#" title="Watch Video: gmu-logo-cropped">
+                        <img src="images/gmu-logo-cropped.png"
+                             alt="Video Thumbnail: gmu-logo-cropped"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 1.95s;">
+                    <a href="#" title="Watch Video: gmu-logo">
+                        <img src="images/gmu-logo.png"
+                             alt="Video Thumbnail: gmu-logo"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.00s;">
+                    <a href="#" title="Watch Video: gmulogo">
+                        <img src="images/gmulogo.png"
+                             alt="Video Thumbnail: gmulogo"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.05s;">
+                    <a href="#" title="Watch Video: gt-logo-cropped-monogram">
+                        <img src="images/gt-logo-cropped-monogram.png"
+                             alt="Video Thumbnail: gt-logo-cropped-monogram"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.10s;">
+                    <a href="#" title="Watch Video: gt-logo-cropped">
+                        <img src="images/gt-logo-cropped.png"
+                             alt="Video Thumbnail: gt-logo-cropped"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.15s;">
+                    <a href="#" title="Watch Video: gt-logo-monogram">
+                        <img src="images/gt-logo-monogram.png"
+                             alt="Video Thumbnail: gt-logo-monogram"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.20s;">
+                    <a href="#" title="Watch Video: gt-logo-vert">
+                        <img src="images/gt-logo-vert.png"
+                             alt="Video Thumbnail: gt-logo-vert"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.25s;">
+                    <a href="#" title="Watch Video: gt-logo">
+                        <img src="images/gt-logo.png"
+                             alt="Video Thumbnail: gt-logo"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.30s;">
+                    <a href="#" title="Watch Video: ise-logo-1">
+                        <img src="images/ise-logo-1.png"
+                             alt="Video Thumbnail: ise-logo-1"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.35s;">
+                    <a href="#" title="Watch Video: ise-logo">
+                        <img src="images/ise-logo.png"
+                             alt="Video Thumbnail: ise-logo"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.40s;">
+                    <a href="#" title="Watch Video: iu-bus">
+                        <img src="images/iu-bus.png"
+                             alt="Video Thumbnail: iu-bus"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.45s;">
+                    <a href="#" title="Watch Video: iu-logo-cropped-1">
+                        <img src="images/iu-logo-cropped-1.png"
+                             alt="Video Thumbnail: iu-logo-cropped-1"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.50s;">
+                    <a href="#" title="Watch Video: iu-logo-cropped-2">
+                        <img src="images/iu-logo-cropped-2.png"
+                             alt="Video Thumbnail: iu-logo-cropped-2"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.55s;">
+                    <a href="#" title="Watch Video: iu-logo-cropped">
+                        <img src="images/iu-logo-cropped.png"
+                             alt="Video Thumbnail: iu-logo-cropped"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.60s;">
+                    <a href="#" title="Watch Video: iu-logo-stamp">
+                        <img src="images/iu-logo-stamp.png"
+                             alt="Video Thumbnail: iu-logo-stamp"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.65s;">
+                    <a href="#" title="Watch Video: iu-logo">
+                        <img src="images/iu-logo.jpg"
+                             alt="Video Thumbnail: iu-logo"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.70s;">
+                    <a href="#" title="Watch Video: iu-trident-logo">
+                        <img src="images/iu-trident-logo.jpg"
+                             alt="Video Thumbnail: iu-trident-logo"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.75s;">
+                    <a href="#" title="Watch Video: iu_trident_web_crimson">
+                        <img src="images/iu_trident_web_crimson.png"
+                             alt="Video Thumbnail: iu_trident_web_crimson"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.80s;">
+                    <a href="#" title="Watch Video: iub-logo">
+                        <img src="images/iub-logo.png"
+                             alt="Video Thumbnail: iub-logo"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.85s;">
+                    <a href="#" title="Watch Video: lehigh-logo-cropped">
+                        <img src="images/lehigh-logo-cropped.png"
+                             alt="Video Thumbnail: lehigh-logo-cropped"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.90s;">
+                    <a href="#" title="Watch Video: lehigh-logo-ori">
+                        <img src="images/lehigh-logo-ori.png"
+                             alt="Video Thumbnail: lehigh-logo-ori"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 2.95s;">
+                    <a href="#" title="Watch Video: lehigh-logo">
+                        <img src="images/lehigh-logo.png"
+                             alt="Video Thumbnail: lehigh-logo"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 3.00s;">
+                    <a href="#" title="Watch Video: luddy_lockup">
+                        <img src="images/luddy_lockup.png"
+                             alt="Video Thumbnail: luddy_lockup"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 3.05s;">
+                    <a href="#" title="Watch Video: luddy_lockup_2">
+                        <img src="images/luddy_lockup_2.png"
+                             alt="Video Thumbnail: luddy_lockup_2"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 3.10s;">
+                    <a href="#" title="Watch Video: luddy_vert">
+                        <img src="images/luddy_vert.png"
+                             alt="Video Thumbnail: luddy_vert"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 3.15s;">
+                    <a href="#" title="Watch Video: luddy_vert_resized">
+                        <img src="images/luddy_vert_resized.png"
+                             alt="Video Thumbnail: luddy_vert_resized"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 3.20s;">
+                    <a href="#" title="Watch Video: luddy_vert_resized_2">
+                        <img src="images/luddy_vert_resized_2.png"
+                             alt="Video Thumbnail: luddy_vert_resized_2"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 3.25s;">
+                    <a href="#" title="Watch Video: mesh_front">
+                        <img src="images/mesh_front.jpg"
+                             alt="Video Thumbnail: mesh_front"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 3.30s;">
+                    <a href="#" title="Watch Video: navigation">
+                        <img src="images/navigation.jpg"
+                             alt="Video Thumbnail: navigation"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 3.35s;">
+                    <a href="#" title="Watch Video: preblimp">
+                        <img src="images/preblimp.png"
+                             alt="Video Thumbnail: preblimp"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 3.40s;">
+                    <a href="#" title="Watch Video: predtr-comingsoon">
+                        <img src="images/predtr-comingsoon.png"
+                             alt="Video Thumbnail: predtr-comingsoon"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 3.45s;">
+                    <a href="#" title="Watch Video: smallman_withball">
+                        <img src="images/smallman_withball.jpg"
+                             alt="Video Thumbnail: smallman_withball"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 3.50s;">
+                    <a href="#" title="Watch Video: umich-logo-cropped">
+                        <img src="images/umich-logo-cropped.png"
+                             alt="Video Thumbnail: umich-logo-cropped"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 3.55s;">
+                    <a href="#" title="Watch Video: umich-logo-raw">
+                        <img src="images/umich-logo-raw.png"
+                             alt="Video Thumbnail: umich-logo-raw"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 3.60s;">
+                    <a href="#" title="Watch Video: umich-logo">
+                        <img src="images/umich-logo.png"
+                             alt="Video Thumbnail: umich-logo"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="animation-delay: 3.65s;">
+                    <a href="#" title="Watch Video: youtube">
+                        <img src="images/youtube.png"
+                             alt="Video Thumbnail: youtube"
+                             class="w-full h-auto object-cover aspect-video placeholder-block transform transition-transform duration-300"
+                             loading="lazy">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-8">
+        <div class="container mx-auto px-6 text-center text-xs">
+            <img src="./images/George Mason University Logo-GOLD WHITE-H.svg" alt="GMU Logo Placeholder" class="h-20 w-auto mx-auto mb-3 opacity-75">
+            <p>&copy; <span id="year"></span> George Mason University - Defend the Republic Competition.</p>
+            <p><a href="https://www.gmu.edu" target="_blank" rel="noopener noreferrer" class="hover:text-gmu-gold transition duration-300">George Mason University</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
